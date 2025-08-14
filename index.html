@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Automatic Light On/Off</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #222;
+      color: #eee;
+    }
+    #light {
+      margin: 40px auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: #555;
+      box-shadow: none;
+      transition: background-color 0.5s, box-shadow 0.5s;
+    }
+    #light.on {
+      background-color: yellow;
+      box-shadow: 0 0 30px 15px yellow;
+    }
+    #status {
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Automatic Light Control</h1>
+  <div id="light"></div>
+  <div id="status">Checking time...</div>
+
+  <script>
+    function updateLight() {
+      const now = new Date();
+      const hour = now.getHours();
+
+      const light = document.getElementById('light');
+      const status = document.getElementById('status');
+
+      // Light on from 6 PM (18) to 6 AM (6)
+      if (hour >= 18 || hour < 6) {
+        light.classList.add('on');
+        status.textContent = "Light is ON (Night time)";
+      } else {
+        light.classList.remove('on');
+        status.textContent = "Light is OFF (Day time)";
+      }
+    }
+
+    updateLight();
+    setInterval(updateLight, 60000); // update every minute
+  </script>
+</body>
+</html>
